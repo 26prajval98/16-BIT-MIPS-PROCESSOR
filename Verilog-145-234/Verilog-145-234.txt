@@ -1,0 +1,100 @@
+16 BIT SINGLE CYCLE MIPS PROCESSOR
+
+
+By 
+	16CO145 SUMUKHA PK
+	16CO234 PRAJVAL M
+
+
+
+HOW TO USE:
+
+First open VerilogROM-145-234.v
+In that you find ROM[0] to ROM[15], in that type in your 16-bit instruction.
+A sample code for sum till 1 to 10 is given.
+
+
+
+
+MIPS INSTRUCTIONS:
+
+The processor supports the following operations:
+    ADD OP-000 FUN-0000 R-TYPE INSTRUCTION
+    SUB OP-000 FUN-0001 R-TYPE INSTRUCTION
+    AND OP-000 FUN-0010 R-TYPE INSTRUCTION
+    OR OP-000 FUN-0011 R-TYPE INSTRUCTION
+    SLT OP-000 FUN-0100 R-TYPE INSTRUCTION
+    JR OP-000 FUN-1000 R-TYPE INSTRUCTION
+    LW OP-100 I-TYPE INSTRUCTION
+    SW OP-101 I-TYPE INSTRUCTION
+    BEQ OP-110 I-TYPE INSTRUCTION
+    ADDI OP-111 I-TYPE INSTRUCTION
+    SLTI OP-001 I-TYPE INSTRUCTION
+    J OP-010 J-TYPE INSTRUCTION
+    JAL OP-011 J-TYPE INSTRUCTION
+
+    NOTE:
+	R-Type instruction:
+  	3 bit opcode + 3 bit reg(S) + 3 bit reg(T) + 3 bit reg(D) + 4 bit fun
+
+	I-Type instruction:
+  	3 bit opcode + 3 bit reg(S) + 3 bit reg(T) + 7 bit Immediate value
+
+  	J-Type instruction:
+  	3 bit opcode + 13 bit address
+
+
+
+
+CODE EXAMPLES:
+    Addi $1, $0, 0x10 will be 1110 0000 1000 1010
+
+    Sub $1,$1,$1 will be 0000 0100 1001 0001
+
+
+
+
+PROGRAM EXAMPLES:
+	addi $1,$1,0
+	addi $2,$2,10
+	addi $3,$3,0
+	Loop: addi $4,$4,1
+	beq $2,$3,exit
+	add $1,$1,$2
+	sub $2,$2,$4
+	j loop
+	exit: addi $4,$4,7
+
+	
+    Machine code in VerilogROM-145-234.v must be as follows:
+	rom[0] = 16'b1110010010000000;
+	rom[1] = 16'b1110100100001010;
+        rom[2] = 16'b1110110110000000; 
+        rom[3] = 16'b1111001000000001;//Loop 
+        rom[4] = 16'b1100100110000101; 
+        rom[5] = 16'b0000010100010000;  
+        rom[6] = 16'b0000101000100001;   
+        rom[7] = 16'b0100000000000100;
+	rom[10] = 16'b1111001000000111;//exit
+
+
+
+
+HOW TO COMPILE:
+
+    To compile in cmd type iverilog Verilog-145-234.v Verilog__-145-234.v         VerilogROM-145-234.v
+    Note:Replace __ by BM or DM 
+
+    Type vvp a.out as the next command, to see the $monitor output
+
+    Type gtkwave Verilog__-145-234.vcd to view the output in gtkwave.
+
+
+
+
+PROJECT SUBMITTED BY 
+
+16CO145		SUMUKHA PK
+16CO234		PRAJVAL M    
+
+ 
